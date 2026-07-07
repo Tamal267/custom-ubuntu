@@ -10,21 +10,12 @@ export DEBIAN_FRONTEND=noninteractive
 apt-get update
 apt-get install -y curl tar
 
-SCRIPT_DIR="$(dirname "$(readlink -f "$0")")"
-CACHE_FILE="${SCRIPT_DIR}/../cache/intellij.tar.gz"
-
 # Download latest IntelliJ tarball
 TEMP_TAR="/tmp/intellij.tar.gz"
 DOWNLOAD_URL="https://download.jetbrains.com/product?code=IIC&release-type=release&platform=linux"
 
-if [ -f "$CACHE_FILE" ]; then
-    echo "Using cached IntelliJ from $CACHE_FILE"
-    cp "$CACHE_FILE" "$TEMP_TAR"
-else
-    echo "Downloading latest IntelliJ Community Edition..."
-    curl -L -C - --retry 5 --retry-delay 5 -o "$TEMP_TAR" "$DOWNLOAD_URL"
-    cp "$TEMP_TAR" "$CACHE_FILE"
-fi
+echo "Downloading latest IntelliJ Community Edition..."
+curl -L -C - --retry 5 --retry-delay 5 -o "$TEMP_TAR" "$DOWNLOAD_URL"
 
 # Extract to /opt
 mkdir -p /opt/intellij

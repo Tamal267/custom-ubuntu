@@ -23,18 +23,10 @@ apt-get install -y curl tar ca-certificates
 JVM_DIR="/usr/lib/jvm"
 mkdir -p "$JVM_DIR"
 
-# Download and extract Java
+# Download OpenJDK
 TEMP_TAR="/tmp/openjdk-${JAVA_VERSION}.tar.gz"
-CACHE_FILE="${SCRIPT_DIR}/../cache/openjdk-${JAVA_VERSION}.tar.gz"
-
-if [ -f "$CACHE_FILE" ]; then
-    echo "Using cached OpenJDK from $CACHE_FILE"
-    cp "$CACHE_FILE" "$TEMP_TAR"
-else
-    echo "Downloading OpenJDK $JAVA_VERSION from $JAVA_DOWNLOAD_URL..."
-    curl -L -C - --retry 5 --retry-delay 5 -o "$TEMP_TAR" "$JAVA_DOWNLOAD_URL"
-    cp "$TEMP_TAR" "$CACHE_FILE"
-fi
+echo "Downloading OpenJDK $JAVA_VERSION from $JAVA_DOWNLOAD_URL..."
+curl -L -C - --retry 5 --retry-delay 5 -o "$TEMP_TAR" "$JAVA_DOWNLOAD_URL"
 
 echo "Extracting OpenJDK to $JVM_DIR..."
 tar -xzf "$TEMP_TAR" -C "$JVM_DIR"

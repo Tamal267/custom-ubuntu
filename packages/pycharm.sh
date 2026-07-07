@@ -10,21 +10,12 @@ export DEBIAN_FRONTEND=noninteractive
 apt-get update
 apt-get install -y curl tar
 
-SCRIPT_DIR="$(dirname "$(readlink -f "$0")")"
-CACHE_FILE="${SCRIPT_DIR}/../cache/pycharm.tar.gz"
-
 # Download latest PyCharm Community tarball
 TEMP_TAR="/tmp/pycharm.tar.gz"
 DOWNLOAD_URL="https://download.jetbrains.com/product?code=PCC&release-type=release&platform=linux"
 
-if [ -f "$CACHE_FILE" ]; then
-    echo "Using cached PyCharm from $CACHE_FILE"
-    cp "$CACHE_FILE" "$TEMP_TAR"
-else
-    echo "Downloading latest PyCharm Community Edition..."
-    curl -L -C - --retry 5 --retry-delay 5 -o "$TEMP_TAR" "$DOWNLOAD_URL"
-    cp "$TEMP_TAR" "$CACHE_FILE"
-fi
+echo "Downloading latest PyCharm Community Edition..."
+curl -L -C - --retry 5 --retry-delay 5 -o "$TEMP_TAR" "$DOWNLOAD_URL"
 
 # Extract to /opt
 mkdir -p /opt/pycharm
