@@ -17,6 +17,7 @@ if [ -d "$CONFIG_SOURCE_DIR" ]; then
     echo "Copying config templates to /etc/skel..."
     mkdir -p /etc/skel
     cp -rT "$CONFIG_SOURCE_DIR" /etc/skel
+    chown -R root:root /etc/skel
 else
     echo "Warning: Configuration templates directory not found at $CONFIG_SOURCE_DIR"
 fi
