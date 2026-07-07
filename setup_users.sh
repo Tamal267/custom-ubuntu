@@ -3,21 +3,23 @@
 
 set -euo pipefail
 
-# Ensure system sbin paths are in PATH inside chroot
-export PATH="/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:${PATH:-}"
-
 # Source variables
-SCRIPT_DIR="$(dirname "$(readlink -f "$0")")"
-if [ -f "$SCRIPT_DIR/variables.sh" ]; then
-    source "$SCRIPT_DIR/variables.sh"
-elif [ -f "/opt/custom-iso-packages/variables.sh" ]; then
-    source "/opt/custom-iso-packages/variables.sh"
-fi
+source variables.sh
 
 ADMIN_USER="${ADMIN_USER:-admin}"
 ADMIN_PASS="${ADMIN_PASS:-AdminPassword123!}"
 MOCK_USER="${MOCK_USER:-mock}"
 MOCK_PASS="${MOCK_PASS:-MockPassword123!}"
+
+# Copy configuration templates to /etc/skel
+CONFIG_SOURCE_DIR="config"
+if [ -d "$CONFIG_SOURCE_DIR" ]; then
+    echo "Copying config templates to /etc/skel..."
+    mkdir -p /etc/skel
+    cp -rT "$CONFIG_SOURCE_DIR" /etc/skel
+else
+    echo "Warning: Configuration templates directory not found at $CONFIG_SOURCE_DIR"
+fi
 
 echo "Configuring user accounts: $ADMIN_USER and $MOCK_USER..."
 
@@ -36,13 +38,6 @@ create_user_if_not_exists() {
         useradd -m -s /bin/bash "$username"
         echo "$username:$password" | chpasswd
     fi
-
-    # Add to default desktop groups
-    for grp in adm cdrom dip plugdev base netdev audio video; do
-        if getent group "$grp" &>/dev/null; then
-            usermod -aG "$grp" "$username"
-        fi
-    done
 
     # Add admin to sudo
     if [ "$is_admin" = "true" ]; then

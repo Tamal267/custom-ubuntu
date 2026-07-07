@@ -7,11 +7,8 @@ echo "Installing OpenJDK 21.0.4..."
 export DEBIAN_FRONTEND=noninteractive
 
 # Source variables
-SCRIPT_DIR="$(dirname "$(readlink -f "$0")")"
-if [ -f "$SCRIPT_DIR/../variables.sh" ]; then
-    source "$SCRIPT_DIR/../variables.sh"
-elif [ -f "/opt/custom-iso-packages/variables.sh" ]; then
-    source "/opt/custom-iso-packages/variables.sh"
+if [ -f "variables.sh" ]; then
+    source variables.sh
 fi
 
 # Fallback defaults if variables are not sourced
