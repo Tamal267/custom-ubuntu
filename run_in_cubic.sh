@@ -22,6 +22,9 @@ bash setup_users.sh
 echo "3. Running Post-Install Verification & Configurations..."
 bash afterinstall.sh
 
+echo "4. Applying Site Blocking Firewall Rules..."
+bash site_blocking.sh
+
 echo "===================================================="
 echo "Customizations applied successfully!"
 echo "You can now click 'Next' in Cubic to build the ISO."

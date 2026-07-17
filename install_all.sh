@@ -18,19 +18,6 @@ if [ -d /etc/apt/sources.list.d ]; then
     rm -f /etc/apt/sources.list.d/*cdrom*
 fi
 
-# Import missing Ubuntu 26.04 ISO repository signing key to prevent installer curtin crash
-echo "Importing missing Ubuntu 26.04 ISO GPG signing key (1BC4DB0A475955C8)..."
-gpg --keyserver keyserver.ubuntu.com --recv-keys 1BC4DB0A475955C8 || {
-    echo "Warning: Failed to fetch key from keyserver.ubuntu.com. Trying pgp.mit.edu..."
-    gpg --keyserver pgp.mit.edu --recv-keys 1BC4DB0A475955C8 || true
-}
-if gpg --list-keys 1BC4DB0A475955C8 &>/dev/null; then
-    mkdir -p /etc/apt/trusted.gpg.d
-    gpg --export 1BC4DB0A475955C8 > /etc/apt/trusted.gpg.d/ubuntu-resolute-iso-keyring.gpg
-    echo "Successfully imported key 1BC4DB0A475955C8 into /etc/apt/trusted.gpg.d/"
-else
-    echo "Warning: Could not import key 1BC4DB0A475955C8."
-fi
 
 echo "=========================================="
 echo "Starting installation of all packages..."
