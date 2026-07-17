@@ -1,4 +1,6 @@
 #!/bin/bash
 set -euo pipefail
 
-echo "Pre-clean phase: skipped default package purging to preserve system metapackages."
+echo "Removing LibreOffice packages..."
+apt-get purge -y "libreoffice*" || true
+apt-get autoremove -y
