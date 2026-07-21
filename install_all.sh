@@ -45,7 +45,7 @@ for script in java.sh gcc_gpp.sh python.sh pypy3.sh; do
 done
 
 # 5. Install editors and IDEs
-for script in vim.sh geany.sh kate.sh sublime.sh intellij.sh pycharm.sh codeblocks.sh vscode.sh; do
+for script in vim.sh geany.sh kate.sh sublime.sh vscode.sh codeblocks.sh intellij.sh pycharm.sh; do
     if [ -f "$PACKAGES_DIR/$script" ]; then
         bash "$PACKAGES_DIR/$script"
     fi

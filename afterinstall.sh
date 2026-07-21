@@ -93,20 +93,9 @@ apply_user_configs() {
         cp -R "$CONFIG_DIR/codeblocks/." "$user_home/.config/codeblocks/"
     fi
 
-    # 3. Sublime Text settings
-    mkdir -p "$user_home/.config/sublime-text/Packages/User"
-    if [ -f "$CONFIG_DIR/sublime/Preferences.sublime-settings" ]; then
-        cp "$CONFIG_DIR/sublime/Preferences.sublime-settings" "$user_home/.config/sublime-text/Packages/User/Preferences.sublime-settings"
-    fi
-
     # 4. Vim config
     if [ -f "$CONFIG_DIR/vim/.vimrc" ]; then
         cp "$CONFIG_DIR/vim/.vimrc" "$user_home/.vimrc"
-    fi
-
-    # 5. Emacs config
-    if [ -f "$CONFIG_DIR/emacs/.emacs" ]; then
-        cp "$CONFIG_DIR/emacs/.emacs" "$user_home/.emacs"
     fi
 
     # Set proper permissions if user is not skeleton template
