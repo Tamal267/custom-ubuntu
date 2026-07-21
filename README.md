@@ -6,8 +6,8 @@ This toolkit provides an automated structure for building a customized Ubuntu De
 
 ## Features
 
-- **Desktop Environment & Terminals**: Retains GNOME's default system terminal (**Ptyxis**) without installing extra terminals.
-- **Pre-Clean Actions**: Uninstalls conflict default packages (e.g. `vim-tiny` and legacy `gedit`) while retaining default tools like `nano`, `mousepad`, and `ptyxis`.
+- **Desktop Environment & Terminals**: Retains GNOME's default system terminal (**Gnome Terminal**) without installing extra terminals.
+- **Pre-Clean Actions**: Uninstalls extra default packages (e.g. LibreOffice, Remmina, Shotwell, and `xterm`) while retaining default tools like `nano`, `mousepad`, and `ptyxis`.
 - **Custom Accounts**: Automatically creates two custom users:
   - **`admin`**: Sudoer account with administrative rights.
   - **`mock`**: Standard system user.
