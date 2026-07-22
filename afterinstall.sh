@@ -83,18 +83,25 @@ apply_user_configs() {
 
     # 1. VS Code settings
     mkdir -p "$user_home/.config/Code/User"
-    if [ -f "$CONFIG_DIR/vscode/settings.json" ]; then
+    if [ -f "$CONFIG_DIR/.config/Code/User/settings.json" ]; then
+        cp "$CONFIG_DIR/.config/Code/User/settings.json" "$user_home/.config/Code/User/settings.json"
+    elif [ -f "$CONFIG_DIR/vscode/settings.json" ]; then
         cp "$CONFIG_DIR/vscode/settings.json" "$user_home/.config/Code/User/settings.json"
     fi
 
     # 2. Code::Blocks settings
-    if [ -d "$CONFIG_DIR/codeblocks" ]; then
+    if [ -d "$CONFIG_DIR/.config/codeblocks" ]; then
+        mkdir -p "$user_home/.config/codeblocks"
+        cp -R "$CONFIG_DIR/.config/codeblocks/." "$user_home/.config/codeblocks/"
+    elif [ -d "$CONFIG_DIR/codeblocks" ]; then
         mkdir -p "$user_home/.config/codeblocks"
         cp -R "$CONFIG_DIR/codeblocks/." "$user_home/.config/codeblocks/"
     fi
 
     # 4. Vim config
-    if [ -f "$CONFIG_DIR/vim/.vimrc" ]; then
+    if [ -f "$CONFIG_DIR/.vimrc" ]; then
+        cp "$CONFIG_DIR/.vimrc" "$user_home/.vimrc"
+    elif [ -f "$CONFIG_DIR/vim/.vimrc" ]; then
         cp "$CONFIG_DIR/vim/.vimrc" "$user_home/.vimrc"
     fi
 
